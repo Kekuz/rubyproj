@@ -2,28 +2,23 @@ Rails.application.routes.draw do
 
   root 'home#index'
   #Option 1
-  get '/auth', to: 'auth#index'
+  get '/auth', to: 'auth#new'
   post '/auth', to: 'auth#create'
   delete '/auth', to: 'auth#destroy'
 
+  get '/users', to: 'users#new'
   post '/users', to: 'users#create'
-  get '/feed', to: 'feed#index'
+
+  get '/feed', to: 'home#index'
 
   #Secure Area
 
-  get '/posts/new', to: 'posts#new'
-  get '/posts/:id', to: 'posts#show'
-  post '/posts', to: 'posts#crate'
-  get '/posts/edit', to: 'posts#edit'
-  put '/posts/:id', to: 'posts#update'
-  delete '/posts/:id', to: 'posts#destroy'
-
-  post '/post/:id/comments/', to: 'comments#create'
-  delete '/post/:id/comments/:id', to: 'comments#destroy'
-
-  post '/post/:id/emotions', to: 'emotions#create'
-  post '/comments/:id/emotions', to: 'emotions#create'
-
+  resources :posts do
+    resources :comments, only: [:create, :destroy] do
+      resources :emotions, only: [:create]
+    end
+    resources :emotions, only: [:create]
+  end
   delete '/emotions/:id', to: 'emotions#destroy'
 
 
