@@ -10,7 +10,7 @@ class AuthController < ApplicationController
       session[:user_id] = @user.id
       redirect_to feed_path
     else
-      redirect_to :new, alert: @user.errors.full_messages.join
+      redirect_to :new, alert: @user&.errors&.full_messages.join
     end
   end
 
