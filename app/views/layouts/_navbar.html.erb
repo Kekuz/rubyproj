@@ -1,4 +1,10 @@
 <div class="navbar">
   <%= link_to 'Главная', feed_url %>
-  <%= link_to 'Войти ', auth_url %>
+
+  <%- if @current_user %>
+    <%= @current_user.email %>
+    <%= link_to 'Выйти ', auth_url, method: :delete %>
+  <%- else %>
+    <%= link_to 'Войти ', auth_url %>
+  <% end %>
 </div>

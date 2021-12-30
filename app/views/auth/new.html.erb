@@ -2,14 +2,14 @@
   Вход
 </h1>
 
-<%= form_for @user, remote: true do |f|%>
+<%= form_for @user, url: auth_url, remote: true do |f|%>
   <div class="field">
     <%=f.label 'Email' %>
     <%=f.text_field :email, type: :email %>
   </div>
   <div class="field">
     <%=f.label 'Пароль' %>
-    <%=f.text_field :email, type: :password %>
+    <%=f.text_field :password, type: :password %>
   </div>
 
   <div class="field">
